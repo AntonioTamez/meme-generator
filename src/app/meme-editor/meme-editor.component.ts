@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, AfterViewChecked, ChangeDetectorRef, ViewChildren, QueryList, ElementRef  } from '@angular/core';
+import interact from 'interactjs';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -8,10 +9,21 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './meme-editor.component.html',
   styleUrl: './meme-editor.component.css'
 })
-export class MemeEditorComponent {
+export class MemeEditorComponent implements AfterViewChecked {
+  @ViewChildren('textElement') textElements: QueryList<ElementRef> = new QueryList<never>();
+
+  constructor(private cdr: ChangeDetectorRef) {}
+
   imageSrc: string | null = null;
-  texts: { content: string; color: string; size: number; x: number; y: number }[] = [];
-  newText = { content: '', color: '#000000', size: 20, x: 50, y: 50 };
+  texts: {
+    content: string;
+    color: string;
+    size: number;
+    x: number;
+    y: number;
+    rotation: number;
+  }[] = [];
+  newText = { content: '', color: '#000000', size: 20, x: 50, y: 50, rotation: 0 }; 
 
   onImageUpload(event: Event) {
     const input = event.target as HTMLInputElement;
@@ -23,14 +35,10 @@ export class MemeEditorComponent {
   }
 
   addText() {
+    console.log({ ...this.newText })
     this.texts.push({ ...this.newText });
     this.newText.content = '';
-  }
-
-  onDragEnd(event: DragEvent, index: number) {
-    const rect = (event.target as HTMLElement).getBoundingClientRect();
-    this.texts[index].x = rect.left;
-    this.texts[index].y = rect.top;
+    console.log(this.texts);
   }
 
   downloadMeme() {
@@ -48,7 +56,11 @@ export class MemeEditorComponent {
       this.texts.forEach((text) => {
         ctx.font = `${text.size}px Arial`;
         ctx.fillStyle = text.color;
-        ctx.fillText(text.content, text.x, text.y);
+        ctx.save();
+        ctx.translate(text.x, text.y);
+        ctx.rotate((text.rotation * Math.PI) / 180);
+        ctx.fillText(text.content, 0, 0);
+        ctx.restore();
       });
 
       const link = document.createElement('a');
@@ -58,8 +70,34 @@ export class MemeEditorComponent {
     };
   }
 
-
-
-
-
+  ngAfterViewChecked() {
+    this.cdr.detectChanges();
+    // Verifica que los elementos están siendo seleccionados correctamente
+    console.log('Text Elements:', this.textElements);
+    
+    this.textElements.forEach((elementRef, index) => {
+      interact(elementRef.nativeElement)
+        .draggable({
+          listeners: {
+            move: (event) => {
+              console.log('Moving element', event);
+              const target = event.target;
+              const index = parseInt(target.getAttribute('data-index') || '0', 10);
+              this.texts[index].x += event.dx; // mueve el texto en el eje X
+              this.texts[index].y += event.dy; // mueve el texto en el eje Y
+              console.log(`Nuevo valor x: ${this.texts[index].x}, y: ${this.texts[index].y}`);
+            },
+          },
+        })
+        .gesturable({
+          listeners: {
+            move: (event) => {
+              const target = event.target;
+              const index = parseInt(target.getAttribute('data-index') || '0', 10);
+              this.texts[index].rotation += event.da;
+            },
+          },
+        });
+    });
+  }
 }

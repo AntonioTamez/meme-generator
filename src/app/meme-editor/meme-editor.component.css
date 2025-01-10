@@ -1,0 +1,7 @@
+.container {
+    position: relative;
+  }
+  
+  .absolute {
+    position: absolute; /* Asegura que los textos se posicionen de manera absoluta dentro del contenedor */
+  }

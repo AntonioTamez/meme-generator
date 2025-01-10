@@ -1,57 +1,72 @@
 <div class="container mx-auto p-4">
-    <div class="mb-4">
-      <input type="file" (change)="onImageUpload($event)" accept="image/*" class="hidden" id="fileInput" />
-      <label for="fileInput" class="px-4 py-2 bg-blue-500 text-white rounded shadow hover:bg-blue-600 cursor-pointer">Subir Imagen</label>
-    </div>
-
-    <div class="relative border border-gray-300 rounded-lg overflow-hidden" *ngIf="imageSrc">
-      <img [src]="imageSrc" alt="Imagen cargada" class="w-full" />
-      <div
-        *ngFor="let text of texts; let i = index"
-        class="absolute"
-        [ngStyle]="{
-          top: text.y + 'px',
-          left: text.x + 'px',
-          color: text.color,
-          fontSize: text.size + 'px'
-        }"
-        draggable="true"
-        (dragend)="onDragEnd($event, i)"
-      >
-        {{ text.content }}
-      </div>
-    </div>
-
-    <div class="flex flex-col sm:flex-row gap-4 mt-4">
-      <input
-        type="text"
-        placeholder="Texto"
-        [(ngModel)]="newText.content"
-        class="border px-4 py-2 rounded w-full sm:w-auto"
-      />
-      <input
-        type="color"
-        [(ngModel)]="newText.color"
-        class="border px-4 py-2 rounded"
-      />
-      <input
-        type="number"
-        placeholder="Tamaño"
-        [(ngModel)]="newText.size"
-        class="border px-4 py-2 rounded w-full sm:w-auto"
-      />
-      <button
-        (click)="addText()"
-        class="px-4 py-2 bg-green-500 text-white rounded shadow hover:bg-green-600"
-      >
-        Agregar Texto
-      </button>
-    </div>
-
-    <button
-      (click)="downloadMeme()"
-      class="mt-4 px-4 py-2 bg-blue-500 text-white rounded shadow hover:bg-blue-600"
+  <div class="mb-4">
+    <input
+      type="file"
+      (change)="onImageUpload($event)"
+      accept="image/*"
+      class="hidden"
+      id="fileInput"
+    />
+    <label
+      for="fileInput"
+      class="px-4 py-2 bg-blue-500 text-white rounded shadow hover:bg-blue-600 cursor-pointer"
     >
-      Descargar Meme
+      Subir Imagen
+    </label>
+  </div>
+
+  <div
+    class="relative border border-gray-300 rounded-lg overflow-hidden"
+    *ngIf="imageSrc"
+  >
+    <img [src]="imageSrc" alt="Imagen cargada" class="w-full" />
+    <div
+      *ngFor="let text of texts; let i = index"
+      #textElement
+      class="absolute transform"
+      [ngStyle]="{
+        color: text.color,
+        fontSize: text.size + 'px',
+        top: text.y + 'px',
+        left: text.x + 'px',
+        transform: 'rotate(' + text.rotation + 'deg)'
+      }"
+      [attr.data-index]="i"
+    >
+      {{ text.content }}
+    </div>
+  </div>
+
+  <div class="flex flex-col sm:flex-row gap-4 mt-4">
+    <input
+      type="text"
+      placeholder="Texto"
+      [(ngModel)]="newText.content"
+      class="border px-4 py-2 rounded w-full sm:w-auto"
+    />
+    <input
+      type="color"
+      [(ngModel)]="newText.color"
+      class="border px-4 py-2 rounded"
+    />
+    <input
+      type="number"
+      placeholder="Tamaño"
+      [(ngModel)]="newText.size"
+      class="border px-4 py-2 rounded w-full sm:w-auto"
+    />
+    <button
+      (click)="addText()"
+      class="px-4 py-2 bg-green-500 text-white rounded shadow hover:bg-green-600"
+    >
+      Agregar Texto
     </button>
   </div>
+
+  <button
+    (click)="downloadMeme()"
+    class="mt-4 px-4 py-2 bg-blue-500 text-white rounded shadow hover:bg-blue-600"
+  >
+    Descargar Meme
+  </button>
+</div>
