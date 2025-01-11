@@ -62,6 +62,11 @@ Antes de comenzar, asegúrate de tener instalado:
 
 1. **Compila el proyecto para producción:**
       ```bash
-      ng build --prod
+      ng build or ng  build --configuration production
+
+. **Compila el proyecto para desarrollo:**
+      ```bash
+      ng  build --configuration development
+
 2. **Archivos generados: Los archivos listos para producción estarán en la carpeta dist/.**
    
