@@ -1,59 +1,67 @@
-# MemeGenerator
+# Meme Generator
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.2.
+Un generador de memes interactivo que permite a los usuarios subir imágenes, agregar texto personalizado, modificar colores y posiciones, y descargar la imagen final como un meme.
 
-## Development server
+## 🚀 Características
 
-To start a local development server, run:
+- Subir imágenes desde el dispositivo.
+- Agregar múltiples textos con opciones de personalización:
+  - **Color del texto**.
+  - **Tamaño del texto**.
+  - **Posición y rotación del texto**.
+- Arrastrar y soltar texto directamente sobre la imagen.
+- Descargar la imagen final como archivo **PNG**.
+- Diseño **responsivo** y fácil de usar.
 
-```bash
-ng serve
-```
+## ⚙️ Funcionalidad
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+1. **Carga de imágenes:** El usuario puede cargar una imagen para usarla como base para el meme.
+2. **Agregar textos:** Se permite añadir textos con configuración personalizada (color, tamaño, posición).
+3. **Edición interactiva:** Los textos pueden ser movidos y rotados directamente sobre la imagen con controles interactivos.
+4. **Descarga del meme:** Una vez completado, el meme se puede descargar como archivo PNG.
 
-## Code scaffolding
+## 🛠️ Tecnologías utilizadas
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- **Frontend:** Angular, TypeScript, HTML, CSS (con **Tailwind CSS** para estilos).
+- **Interactividad:** Interact.js para arrastrar y rotar elementos.
+- **Canvas:** Para generar y exportar la imagen final.
 
-```bash
-ng generate component component-name
-```
+## 📚 Stack utilizado
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+- **Framework:** Angular
+- **Librerías principales:**
+  - **Interact.js** (para la manipulación de elementos interactivos).
+  - **Tailwind CSS** (para estilos y diseño).
+- **Lenguajes:** TypeScript, HTML, CSS.
 
-```bash
-ng generate --help
-```
+## 📝 Requisitos previos
 
-## Building
+Antes de comenzar, asegúrate de tener instalado:
 
-To build the project run:
+- **Node.js** (versión 16 o superior).
+- **npm** (gestor de paquetes de Node.js).
 
-```bash
-ng build
-```
+## 🔧 Pasos para ejecutar el proyecto localmente
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+1. **Clona el repositorio:**
+   ```bash
+   git clone https://github.com/AntonioTamez/meme-generator.git
+   cd meme-generator
 
-## Running unit tests
+2. **Instala las dependencias:**
+      ```bash
+      npm install
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+3. **Inicia el servidor de desarrollo:**
+      ```bash
+      ng serve
 
-```bash
-ng test
-```
+4. **Abre la aplicación en tu navegador: Ve a http://localhost:4200.**
 
-## Running end-to-end tests
+## 🚀 Generar build para producción
 
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+1. **Compila el proyecto para producción:**
+      ```bash
+      ng build --prod
+2. **Archivos generados: Los archivos listos para producción estarán en la carpeta dist/.**
+   
