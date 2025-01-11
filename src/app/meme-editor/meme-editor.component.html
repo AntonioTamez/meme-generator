@@ -57,7 +57,8 @@
     />
     <button
       (click)="addText()"
-      class="px-4 py-2 bg-green-500 text-white rounded shadow hover:bg-green-600"
+      [disabled]="!imageSrc"
+      class="px-4 py-2 bg-green-500 text-white rounded shadow hover:bg-green-600 disabled:opacity-50 disabled:cursor-not-allowed"
     >
       Agregar Texto
     </button>
@@ -65,7 +66,8 @@
 
   <button
     (click)="downloadMeme()"
-    class="mt-4 px-4 py-2 bg-blue-500 text-white rounded shadow hover:bg-blue-600"
+    [disabled]="!imageSrc"
+    class="mt-4 px-4 py-2 bg-blue-500 text-white rounded shadow hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed"
   >
     Descargar Meme
   </button>
